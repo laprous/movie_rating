@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <link rel='stylesheet' href="{{ url_for('static, filename='styles.css') }}" type="text/css">
+    <script src="https://kit.fontawesome.com/f75621122b.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootpstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <body>
+        <div>
+            <div>
+                <div>
+                    <span>Enter Your Text here</span>
+                        <form action="/movie_rating" method="post" enctype="multipart/form-data">
+                            <input name="text" class="form-control" placeholder="Enter Review">
+                            <input type="submit" value="Submit">
+                        </form>
+                </div>
+            </div>
+
+            <div>
+                <h2>Sentiment</h2>
+                <div>
+                    {% if probability %}
+                      {{ sentiment }}
+                         {% endif %}
+                </div>
+            </div>
+
+            <div>
+                <h2>Probability</h2>
+                <div>
+                    {% if probability %} 
+                      {{ probability }}
+                        {% endif %}
+                </div>
+            </div>
+
+            <div>
+                {% if probability %}
+                <div>
+                    <h3>Emotion</h3>
+                    <img src='{{ image }}' alt="Face">
+                </div>
+            </div>
+
+        </div>
+    </body>
+
+</html>
