@@ -8,6 +8,7 @@ from numpy import array
 from keras.datasets import imdb
 from keras.preprocessing import sequence
 from keras.models import load_model
+#tf.compat.v1.get_default_graph()
 
 IMAGE_FOLDER = os.path.join('static', 'img')
 
@@ -19,16 +20,16 @@ def init():
     global model, graph
     
     model = load_model('movie_rating.h5')
-    graph = tf.get_default_graph()
+    #graph = tf.get_default_graph()
     
-@pp.route('/', methods = ['GET', 'POST'])
+@app.route('/', methods = ['POST', 'GET'])
 def home():
     return render_template('index.html')
 
 
-@app.route('/movie_rating', method = ['POST', 'GET'])
+@app.route('/movie_rating', methods = ['POST', "GET"])
 def movie_rating():
-    if request.method == 'POST':
+    if request.method == 'POST':  
         text = request.form['text']
         Sentiment = ''
         max_review_length = 500
@@ -50,7 +51,7 @@ def movie_rating():
         else:
             sentiment = 'Positive'
             img_name = os.path.join(app.config['UPLOAD_FOLDER',], 'smile.png')
-    retun render_template('index.html', text = text, sentiment = sentiment, probability = probability, image = img_name)
+    return render_template('index.html', text = text, sentiment = sentiment, probability = probability, image = img_name)
     
     
 if __name__ == '__main__':
